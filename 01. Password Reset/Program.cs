@@ -35,7 +35,7 @@ namespace _01._Password_Reset
                         break;
 
                     case "Substitute":
-                        if(password.Contains(commands[1]))
+                        if (password.Contains(commands[1]))
                         {
                             password = Subtitute(password, commands[1], commands[2]);
                             sb.Append(password);
@@ -65,7 +65,7 @@ namespace _01._Password_Reset
         private static string CutPass(string password, int firstIndex, int secondIndex)
         {
 
-           password= password.Substring(0,firstIndex)+password.Substring(firstIndex+secondIndex);
+            password = password.Substring(0, firstIndex) + password.Substring(firstIndex + secondIndex);
             return password;
         }
 
@@ -73,12 +73,9 @@ namespace _01._Password_Reset
         {
             string newPass = string.Empty;
 
-            for (int i = 0; i < password.Length; i++)
+            for (int i = 1; i < password.Length; i+=2)
             {
-                if (i % 2 == 1)
-                {
-                    newPass += password[i];
-                }
+                newPass += password[i];
             }
             password = newPass;
             return password;
