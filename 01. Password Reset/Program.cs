@@ -8,23 +8,32 @@ namespace _01._Password_Reset
         static void Main(string[] args)
         {
             string password = Console.ReadLine();
+
             string[] commands = Console.ReadLine().Split(" ");
 
             while (commands[0] != "Done")
             {
                 StringBuilder sb = new StringBuilder();
+
                 switch (commands[0])
                 {
                     case "TakeOdd":
+
                         password = TakeOdd(password);
+
                         sb.Append(password);
                         break;
+
                     case "Cut":
+
                         int firstIndex = int.Parse(commands[1]);
                         int secondIndex = int.Parse(commands[2]);
+
                         password = CutPass(password, firstIndex, secondIndex);
+
                         sb.Append(password);
                         break;
+
                     case "Substitute":
                         if(password.Contains(commands[1]))
                         {
@@ -37,7 +46,9 @@ namespace _01._Password_Reset
                         }
                         break;
                 }
+
                 Console.WriteLine(sb);
+
                 commands = Console.ReadLine().Split(" ");
             }
 
