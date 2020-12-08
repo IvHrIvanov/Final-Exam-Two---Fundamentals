@@ -29,11 +29,14 @@ namespace _03._Heroes_of_Code_and_Logic_VII
             {
                 StringBuilder sb = new StringBuilder();
                 int index = hero.FindIndex(x => x.HeroName == commands[1]);
+
                 switch (commands[0])
                 {
                     case "CastSpell":
+
                         int castMana = int.Parse(commands[2]);
                         string spellName = commands[3];
+
                         if (hero[index].Mana >= castMana)
                         {
                             hero[index].Mana -= castMana;
@@ -51,10 +54,12 @@ namespace _03._Heroes_of_Code_and_Logic_VII
                         int damage = int.Parse(commands[2]);
                         string attacker = commands[3];
                         hero[index].Hp -= damage;
+
                         if (hero[index].Hp > 0)
                         {
                             sb.Append($"{hero[index].HeroName} was hit for {damage} HP by {attacker} and now has {hero[index].Hp} HP left!");
                         }
+
                         else if (hero[index].Hp <= 0)
                         {
                             sb.Append($"{hero[index].HeroName} has been killed by {attacker}!");
@@ -64,7 +69,7 @@ namespace _03._Heroes_of_Code_and_Logic_VII
 
                     case "Recharge":
                         int rechargeMp = int.Parse(commands[2]) + hero[index].Mana;
-                        int addMp = maxMp-hero[index].Mana;
+                        int addMp = maxMp - hero[index].Mana;
                         if (rechargeMp > maxMp)
                         {
                             sb.Append($"{hero[index].HeroName} recharged for {addMp} MP!");
@@ -76,9 +81,11 @@ namespace _03._Heroes_of_Code_and_Logic_VII
                             hero[index].Mana += int.Parse(commands[2]);
                         }
                         break;
+
                     case "Heal":
                         int rechargeHeal = int.Parse(commands[2]) + hero[index].Hp;
-                        int addHp = maxHp-hero[index].Hp;
+                        int addHp = maxHp - hero[index].Hp;
+
                         if (rechargeHeal > maxHp)
                         {
                             sb.Append($"{hero[index].HeroName} healed for {addHp} HP!");
@@ -97,14 +104,9 @@ namespace _03._Heroes_of_Code_and_Logic_VII
                 commands = Console.ReadLine().Split(" - ");
             }
 
-            foreach (var item in hero.OrderByDescending(hp=>hp.Hp).ThenBy(N=>N.HeroName))
-            {
-                Console.WriteLine(item.HeroName);
-                Console.WriteLine($"  HP: {item.Hp}");
-                Console.WriteLine($"  MP: {item.Mana}");
+            hero = hero.OrderByDescending(hp => hp.Hp).ThenBy(h => h.HeroName).ToList();
 
-            }
-
+            Console.WriteLine(string.Join(Environment.NewLine, hero));
         }
     }
     class Hero
@@ -119,5 +121,16 @@ namespace _03._Heroes_of_Code_and_Logic_VII
         public string HeroName { get; set; }
         public int Mana { get; set; }
         public int Hp { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(HeroName);
+            sb.AppendLine($"  HP: {Hp}");
+            sb.AppendLine($"  MP: {Mana}");
+
+            return sb.ToString().TrimEnd();
+        }
     }
 }
